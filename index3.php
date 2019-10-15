@@ -1,6 +1,34 @@
 <?php
+$enlace = mysqli_connect("127.0.0.1", "root", "password", "a");
+
+if (!$enlace) {
+    echo "Error: No se pudo conectar a MySQL." . PHP_EOL;
+    echo "errno de depuración: " . mysqli_connect_errno() . PHP_EOL;
+    echo "error de depuración: " . mysqli_connect_error() . PHP_EOL;
+    exit;
+}
+
+echo "Éxito: Se realizó una conexión apropiada a MySQL! La base de datos mi_bd es genial." . PHP_EOL;
+echo "Información del host: " . mysqli_get_host_info($enlace) . PHP_EOL;
+
+echo "<br><br><br>";
+$fp = fopen('test.txt', 'w');
 
 include_once ('estados.php');
+/*
+for ($i=0;$i<100;$i++){
+    $e=  floor(nrand(1, .1));
+    if ($enlace->query("insert into a values($e)") === TRUE) {
+        printf("ok \n");
+    }
+    echo "| ".($e);
+}
+echo "<br>";
+
+
+die();*/
+
+
 $digits_needed=8;
 function multiexplode ($delimiters,$string) {
 
@@ -8,11 +36,15 @@ function multiexplode ($delimiters,$string) {
     $launch = explode($delimiters[0], $ready);
     return  $launch;
 }
-
+fwrite($fp, "1000 7 0\n");
 
 $fila = 1;
 if (($gestor = fopen("c.csv", "r")) !== FALSE) {
     while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+        $fila++;
+        /*if ($fila == 500){
+            die("salio");
+        }
         $random_number='55';
         $count=0;
         $numero = count($datos);
@@ -49,7 +81,71 @@ if (($gestor = fopen("c.csv", "r")) !== FALSE) {
         echo " | ".$estados[9];
         echo " | ".$datos[8];
         echo " | ".$datos[9];
-        echo "<br>---------------<br> ";
+        echo "<br>---------------<br> ";*/
+
+        $__PUT ="";
+        $__PUT.="$fila ";
+
+
+        $b =floor(nrand(2.5, .8));
+        $bc =floor(nrand(500, 8));
+
+        echo " | 19.".$b.$bc;
+        $__PUT.= "19.".$b.$bc;
+
+        $bb1 =floor(nrand(2, .4));
+        $bc1 =floor(nrand(500, 8));
+        echo " | -99.".$bb1.$bc1;
+        $__PUT.= " -99.".$bb1.$bc1;
+
+        $b =floor(nrand(2, .4));
+        if ($b!= 1 || $b != 2){
+            $b=  rand(1,2);
+        }
+        echo "| ".$b;
+        $__PUT.= " ".$b;
+
+
+
+        $e=  floor(nrand(8, 2));
+        echo "| ".($e*1000);
+        $__PUT.= " ".($e*1000);
+
+
+        $bb =floor(nrand(2, .4));
+        $aa= $bb!=1||$bb!=2?$bb:rand(1,2);
+        echo "| ".$aa;
+        $__PUT.= " ".$aa;
+
+        $bb1 =floor(nrand(2, .4));
+        if ($bb1!= 1 || $bb1 != 2){
+            $bb1=  rand(1,2);
+        }
+        echo "| ".$bb1;
+        $__PUT.= " ".$bb1;
+
+
+        $bb12 =floor(nrand(2, .4));
+        if ($bb12!= 1 || $bb12 != 2){
+            $bb12=  rand(1,2);
+        }
+        echo "| ".$bb12;
+        $__PUT.= " ".$bb12;
+
+        echo "| ".rand(1,8)."\n";
+        //$__PUT.= " ".rand(1,8)."\n";
+        $__PUT.= " 0\n";
+
+        fwrite($fp, $__PUT);
+
+
+
+
+        echo "<br> ";
+
+        /*if ($enlace->query($sql) === TRUE) {
+            printf("ok \n");
+        }*/
 
 
 
@@ -57,6 +153,12 @@ if (($gestor = fopen("c.csv", "r")) !== FALSE) {
             echo $datos[$c] . "<br />\n";
         }*/
     }
+
+    fclose($fp);
     fclose($gestor);
+    mysqli_close($enlace);
+
+
+
 }
 ?>
